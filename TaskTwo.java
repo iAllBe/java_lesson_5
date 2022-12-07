@@ -1,39 +1,74 @@
-﻿import java.util.HashMap;
+﻿import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TaskTwo {
     // 2. Пусть дан список сотрудников:Иван Иванов Написать программу, которая
     // найдет и выведет повторяющиеся имена с количеством повторений. Отсортировать
     // по убыванию популярности.
 
-    public HashMap<Integer, String> fillMap(HashMap<Integer, String> list) {
-        list.put(1, "Иванов");
-        list.put(2, "Васильев");
-        list.put(3, "Петрова");
-        list.put(4, "Иванов");
-        list.put(5, "Петрова");
-        list.put(6, "Иванов");
+    public ArrayList<String> fillList(ArrayList<String> list) {
+        list.add("Иван Иванов");
+        list.add("Иван Иванов");
+        list.add("Иван Иванов");
+        list.add("Петр Петров");
+        list.add("Олег Олегов");
+        list.add("Василий Васильев");
+        list.add("Петр Петров");
+        list.add("Иван Иванов");
+        list.add("Олег Олегов");
+        list.add("Федор Федоров");
+        list.add("Олег Олегов");
         return list;
     }
 
-    public void countRepeat(HashMap<Integer, String> list) {
+    public HashMap<String, Integer> countRepeat(ArrayList<String> list) {
         HashMap<String, Integer> countMap = new HashMap<>();
+        HashMap<String, Integer> uniqMap = new HashMap<>();
 
-        for (HashMap.Entry<Integer, String> listEntry : list.entrySet()) {
-            countMap.put(listEntry.getValue(), 0);
+        for (int i = 0; i < list.size(); i++) {
+            countMap.put(list.get(i), 0);
         }
 
-        System.out.println(countMap);
-
-        for (HashMap.Entry<Integer, String> listEntry : list.entrySet()) {
+        for (int i = 0; i < list.size(); i++) {
             for (HashMap.Entry<String, Integer> countEntry : countMap.entrySet()) {
-                if (listEntry.getValue().equals(countEntry.getKey())) {
-                    Integer tempInt = countEntry.getValue();
-                    String tempStr = countEntry.getKey();
-                    countMap.put(tempStr, tempInt+1);
+                if (list.get(i).equals(countEntry.getKey())) {
+                    countMap.put(list.get(i), countEntry.getValue() + 1);
                 }
             }
         }
 
-        System.out.println(countMap);
+        for (HashMap.Entry<String, Integer> countEntry : countMap.entrySet()) {
+            if (countEntry.getValue() != 1) {
+                uniqMap.put(countEntry.getKey(), countEntry.getValue());
+            }
+        }
+
+        return uniqMap;
+    }
+
+    public void sortList(HashMap<String, Integer> list) {
+        ArrayList<String> sortedList = new ArrayList<>();
+        Integer max = 2;
+
+        System.out.println("Первоначальный список: " + list);
+
+        for (HashMap.Entry<String, Integer> countEntry : list.entrySet()) {
+            if (countEntry.getValue() > max) {
+                max = countEntry.getValue();
+            }
+        }
+
+        do {
+            for (HashMap.Entry<String, Integer> countEntry : list.entrySet()) {
+                if (countEntry.getValue() == max) {
+                    sortedList.add(countEntry.getKey() + " встречается " + countEntry.getValue() + " раз(а)");
+                }
+            }
+
+            max--;
+        } while (max > 1);
+
+
+        System.out.print("Отсортированный по убыванию популярности список: " + sortedList);
     }
 }

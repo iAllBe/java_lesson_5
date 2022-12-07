@@ -1,4 +1,5 @@
-﻿import java.util.HashMap;
+﻿import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -11,8 +12,9 @@ public class Main {
         // in.close();
 
         TaskTwo taskTwo = new TaskTwo();
-        HashMap<Integer,String> list = taskTwo.fillMap(new HashMap<>());
-        taskTwo.countRepeat(list);
+        ArrayList<String> list = taskTwo.fillList(new ArrayList<>());
+        HashMap<String, Integer> uniqtList = taskTwo.countRepeat(list);
+        taskTwo.sortList(uniqtList);
     }
 
 }
